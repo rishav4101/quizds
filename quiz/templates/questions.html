@@ -1,0 +1,90 @@
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wembo</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+    <div class="back">
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+    </div>
+
+
+
+
+    <div class="navv">
+        <button id='togg_menu'>
+            <span class='bar'></span>
+            <span class='bar'></span>
+            <span class='bar'></span>
+        </button>
+        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto" style="float:right; margin-right: 10px;">
+        <header>
+            <ul class='megaMenu'>
+
+                <li>
+                    <a href='questions.html'>Game</a>
+
+                </li>
+                <li>
+                    <a href='leaderboard.html'>Leaderboard</a>
+
+                </li>
+                <li><a href='/accounts/logout/'>Logout</a></li>
+
+            </ul>
+        </header>
+
+    </div>
+
+
+    <div class="head">
+        <p>Question 1</p>
+    </div>
+
+    
+    <div class="box">
+        
+        <p>Question it is, try to solve and fuck offffff. Question it is, try to solve and fuck offffff.Question it
+            is,
+            try to solve and fuck offffff.Question it is, try to solve and fuck offffff.Question it is, try to solve
+            and
+            fuck offffff.Question it is, try to solve and fuck offffff.Question it is, try to solve and fuck
+            offffff.Question it is, try to solve and fuck offffff.Question it is, try to solve and fuck
+            offffff.Question
+            it is, try to solve and fuck offffff.Question it is, try to solve and fuck offffff.Question it is, try
+            to
+            solve and fuck offffff.Question it is, try to solve and fuck offffff.Question it is, try to solve and
+            fuck
+            offffff.Question it is, try to solve and fuck offffff.Question it is, try to solve and fuck
+            offffff.Question
+            it is, try to solve and fuck offffff.Question it is, try to solve and fuck offffff.Question it is, try
+            to
+            solve and fuck offffff.Question it is, try to solve and fuck offffff.</p>
+    </div>
+    <div class="container">
+
+        <form class="form">
+            
+            <input type="text" placeholder="Answer">
+
+            <button type="submit" id="login-button">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
