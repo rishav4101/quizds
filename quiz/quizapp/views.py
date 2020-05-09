@@ -17,19 +17,23 @@ def login(request):
 def choose(request):
     
     player = User.objects.first()
-    
+    name = player.email
     try:
-        x=player.email
-        case = Myusers.objects.get(email=x)
+        
+        case = Myusers.objects.get(email=player.email)
+
 
     except Myusers.DoesNotExist:
-        user = Myusers(name=player.first_name, email= player.email)
+        user = Myusers()
+        user.name = player.username
+        user.email = player.email
+        user.save()
         
         case = None
-        user.save()
+        
 
 
-    name = player.name
+    
     if case is None:
         firsttime = 1
         return render(request, 'choose.html', {'name':name, 'firsttime':firsttime})
@@ -42,6 +46,8 @@ def choose(request):
 
 @login_required
 def questions(request):
-    return render(request, 'questions.html')
+    player = User.objects.first()
+    name = player.username
+    return render(request, 'questions.html',{'name':name})
 
 

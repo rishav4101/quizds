@@ -11,7 +11,7 @@ import datetime
 
 
 class Myusers(models.Model):
-    name = models.ForeignKey(to=User,on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
     email = models.CharField(max_length=50,default=None)
     choice = models.CharField(max_length=30)
     pointsfactor = models.IntegerField(default=0)   # The no. of correct answers

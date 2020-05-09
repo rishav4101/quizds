@@ -149,6 +149,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL ='/choosefile/'
 ACCOUNT_LOGOUT_REDIRECT_URL ='/'
 
+
 SOCIALACCOUNT_PROVIDERS = {
     
      'google': {
