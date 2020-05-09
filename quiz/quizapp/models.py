@@ -12,8 +12,8 @@ import datetime
 
 class Myusers(models.Model):
     name = models.CharField(max_length=50)
-    email = models.CharField(max_length=50,default=None)
-    choice = models.CharField(max_length=30)
+    email = models.CharField(max_length=50,default=None,unique=True)
+    choice = models.CharField(max_length=30,null=True)
     pointsfactor = models.IntegerField(default=0)   # The no. of correct answers
     rank=models.IntegerField(null=True)
     lastcorrectans = models.DateTimeField(auto_now=True)
@@ -34,7 +34,7 @@ class Myusers(models.Model):
         player.save()
 
 class Movies (models.Model):
-    order = models.IntegerField(default=0, unique=True)
+    order = models.IntegerField(default=0, unique=True, primary_key=True)
     question = models.CharField(max_length=500)
     islink = models.BooleanField(default=False)
     ispic = models.BooleanField(default=False)
@@ -43,6 +43,16 @@ class Movies (models.Model):
 
     def __str__(self):
         return "{}".format(self.question)
+    def check_ans(self,answer,question):
+        answers=question.answer.split(",")
+        for ans in answers:
+            if answer==ans:
+                return True
+        return False
+
+    def get_next_question(self,day,qno):
+        question=self.objects.filter(day=day,question_no=qno)
+        return question
 
 
     
@@ -57,6 +67,17 @@ class Series (models.Model):
 
     def __str__(self):
         return "{}".format(self.question)
+    def check_ans(self,answer,question):
+        answers=question.answer.split(",")
+        for ans in answers:
+            if answer==ans:
+                return True
+        return False
+
+    def get_next_question(self,day,qno):
+        question=self.objects.filter(day=day,question_no=qno)
+        return question
+
 
 class Books (models.Model):
     order = models.IntegerField(default=0, unique=True)

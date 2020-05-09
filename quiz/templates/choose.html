@@ -32,14 +32,14 @@
     <div class="wall">
      
     {% if firsttime == 1 %}   
-        <div class="wall_title"><button type="submit" class="cbtn"> <a href="{% url 'questions' %}">movies </a></button></a></div>
+        <div class="wall_title"><button type="submit" class="cbtn"> <a href="{% url 'questions_of_movies' pk %}">movies </a></button></a></div>
         <div class="wall_title"><button type="submit" class="cbtn"
-                onclick="window.location.href='questions.html';">series {{name}} </button></div>
+                onclick="window.location.href='questions.html';">series </button></div>
         <div class="wall_title"><button type="submit" class="cbtn"
                 onclick="window.location.href='questions.html';">books   </button></div>
                 
     {% else %} 
-         <div class="wall_title"><button type="submit" class="cbtn"> <a href="{% url 'questions' %}">Continue {{name}} ? </a></button></a></div> 
+         <div class="wall_title"><button type="submit" class="cbtn"> <a href="{% url 'questions_of_movies' pk %}">Continue  ? </a></button></a></div> 
         
         
 

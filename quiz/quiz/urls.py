@@ -22,9 +22,10 @@ from quizapp import views
 
 urlpatterns = [
     url(r'^$', views.login, name='login'),
-    url(r'^questions/', views.questions, name='questions'),
-    url(r'^choosefile/', views.choose, name='choose'),
     
+    url(r'^choosefile/', views.choose, name='choose'),
+    url(r'^questions/(?P<pk>\d+)/movies/$', views.questionmovies, name='questions_of_movies'),
+
     path('admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
  
