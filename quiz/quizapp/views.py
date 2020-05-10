@@ -18,8 +18,8 @@ def login(request):
 #This function is messed up. Needs to be fixed asap.//kkc
 def choose(request):
     
-    player = User.objects.first()
- #   name = player.username
+    player = request.user
+    name = player.username
     case = 0
     prk = 1
     try:
@@ -58,10 +58,44 @@ def choose(request):
 @login_required
 def questionmovies(request, pk):
 
-    question = get_object_or_404( Movies, pk = pk)
-    user = User.objects.first()
-    player = Myusers.objects.get(email=user.email)
     
+    user = request.user
+    player = Myusers.objects.get(email=user.email)
+
+    qno = player.pointsfactor
+    qno = qno+1
+    qno = str(qno)
+
+    question = get_object_or_404( Movies, pk = qno)
+
+
+
+    if request.method == 'POST':
+        
+        
+        answer = request.POST.get('Answer')
+        decision = question.check_ans(answer, question)
+        if (decision == 1):
+            
+            player.pointsfactor= player.pointsfactor+1
+            player.save()
+            qno = player.pointsfactor
+            qno = qno+1
+            qno = str(qno)
+            
+        #    pk = int(pk)
+        #    pk = pk+1
+        #    pk = str(pk)
+            questionnext = get_object_or_404( Movies, pk = qno)
+       #     return HttpResponse("correct ans!")
+            return render(request,'questions.html',{'question':questionnext, 'pk':qno})
+
+        else :              
+            return render(request, 'questions.html',{'question':question, 'pk':qno})
+    
+    else:
+        return render(request, 'questions.html',{'question':question, 'pk':qno})
+     
     
 
 

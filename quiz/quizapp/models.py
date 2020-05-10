@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 import datetime
+from collections import Counter
 
 
 
@@ -44,14 +45,19 @@ class Movies (models.Model):
     def __str__(self):
         return "{}".format(self.question)
     def check_ans(self,answer,question):
-        answers=question.answer.split(",")
-        for ans in answers:
-            if answer==ans:
-                return True
-        return False
+        # #answer checker is messed up too
+        # if(Counter(answer) == Counter(question.answer)):
+        #     return True
+        # else:
+        #     return False
+       answers=question.answer.split(",")
+       for ans in answers:
+           if answer==ans:
+               return True
+       return False
 
     def get_next_question(self,day,qno):
-        question=self.objects.filter(day=day,question_no=qno)
+        question=self.objects.filter(day=day,order=qno)
         return question
 
 

@@ -63,9 +63,9 @@
     </div>
     <div class="container">
 
-        <form class="form">
-            
-            <input type="text" placeholder="Answer">
+        <form class="form" name="Response" method="POST">
+            {% csrf_token %}
+            <input type="text" name="Answer" placeholder="Answer">
 
             <button type="submit" id="login-button">Submit</button>
         </form>
