@@ -54,12 +54,29 @@
     <div class="head">
         <p>Question {{pk}}</p>
     </div>
+    {% if question.islink is True %}
+    <div class="box">
+            <p>
+                {{ question.link }}
+                Here should be a link
+            </p>
+    </div>
+    {% endif %}
 
-    
+    {% if question.ispic is True %}
+    <div class="box">
+        <p>
+            Here should be a pic. Seriously. -__- Where is it, Rajkumar?
+        </p>
+    </div>
+    {% endif %}
+
+
+
     <div class="box">
         
         <p>{{question.question}}
-            </p>
+        </p>
     </div>
     <div class="container">
 
