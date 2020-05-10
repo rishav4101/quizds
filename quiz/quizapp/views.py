@@ -9,8 +9,34 @@ from django.http import HttpResponse
 
 def login(request):
     if request.user.is_authenticated:
-        pk=1
-        return render(request, 'choose.html', {'pk':pk})
+        player = request.user
+        try:
+            crap = Myusers.objects.get(email=player.email)
+            if crap.choice is None:
+                firsttime = 1
+                return HttpResponse("No choices filled!")
+            else :
+                firsttime = 0
+        except Myusers.DoesNotExist:
+            user = Myusers()
+            user.name = player.username
+            user.email = player.email
+            user.save()
+            firsttime = 1
+
+        crap = Myusers.objects.get(email=player.email)
+
+        pk = crap.pointsfactor
+        pk = pk+1
+        pk = str(pk)
+
+        if firsttime == 0:
+            if crap.choice == "Movies":
+               # question = get_object_or_404( Movies, pk = pk)
+                questionmovies(request, pk)
+               # return render(request, 'questions.html',{'question':question, 'pk':pk})
+
+        return choose(request)
     else:
         return render(request, 'index.html')
 
@@ -26,11 +52,14 @@ def choose(request):
         
         crap = Myusers.objects.get(email=player.email)
         if crap.choice is None:
-    #       case = 0
-    #    else:
-            case = 1
+
+            case = 0
+    #        return HttpResponse("correct ans!")
         else:
-            name = crap.name  
+            case = 1
+    #        return HttpResponse("No choices filled!")
+    #    else:
+    #        name = crap.name  
 
     except Myusers.DoesNotExist:
         user = Myusers()
@@ -67,7 +96,10 @@ def questionmovies(request, pk):
     qno = str(qno)
 
     question = get_object_or_404( Movies, pk = qno)
-
+    if player.choice is None:
+        player.choice = "Movies"
+        player.save()
+    #    return HttpResponse("lol saved as movies!")
 
 
     if request.method == 'POST':

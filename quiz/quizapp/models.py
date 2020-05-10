@@ -34,6 +34,9 @@ class Myusers(models.Model):
         player.pointsfactor+=1
         player.save()
 
+    def __str__(self):
+        return "{}".format(self.name)
+
 class Movies (models.Model):
     order = models.IntegerField(default=0, unique=True, primary_key=True)
     question = models.CharField(max_length=500)
