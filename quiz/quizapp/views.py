@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-from .models import Myusers, Movies
+from .models import Myusers, Movies, Series, Books
 from django.contrib.auth.models import User
 
 from django.http import HttpResponse
@@ -14,7 +14,7 @@ def login(request):
             crap = Myusers.objects.get(email=player.email)
             if crap.choice is None:
                 firsttime = 1
-                return HttpResponse("No choices filled!")
+        #        return HttpResponse("No choices filled!")
             else :
                 firsttime = 0
         except Myusers.DoesNotExist:
@@ -33,15 +33,28 @@ def login(request):
         if firsttime == 0:
             if crap.choice == "Movies":
                # question = get_object_or_404( Movies, pk = pk)
-                questionmovies(request, pk)
+                return questionmovies(request)
+                
                # return render(request, 'questions.html',{'question':question, 'pk':pk})
+
+            elif crap.choice == "Series":
+                return questionseries(request)
+
+            elif crap.choice == "Books":
+                return questionbooks(request)
+
+
+                
+            else:
+                return HttpResponse("You shouldn't be here. This error should have never happened. Just like you. Report the moderator immediately")
+
 
         return choose(request)
     else:
         return render(request, 'index.html')
 
 @login_required
-#This function is messed up. Needs to be fixed asap.//kkc
+#This function is messed up. Needs to be fixed asap.//kkc//fixed//kkc
 def choose(request):
     
     player = request.user
@@ -50,16 +63,33 @@ def choose(request):
     prk = 1
     try:
         
+
         crap = Myusers.objects.get(email=player.email)
+        
+        if crap.choice == "Movies":
+
+               # question = get_object_or_404( Movies, pk = pk)
+            return questionmovies(request)
+               # return render(request, 'questions.html',{'question':question, 'pk':pk})
+
+        elif crap.choice == "Series":
+            return questionseries(request)
+
+        elif crap.choice == "Books":
+            return questionbooks(request)
+
+    
+                
+        
+
         if crap.choice is None:
 
             case = 0
     #        return HttpResponse("correct ans!")
         else:
-            case = 1
-    #        return HttpResponse("No choices filled!")
-    #    else:
-    #        name = crap.name  
+            return HttpResponse("You shouldn't be here. This error should have never happened. Just like you. Report the moderator immediately")
+
+
 
     except Myusers.DoesNotExist:
         user = Myusers()
@@ -85,21 +115,35 @@ def choose(request):
 
 
 @login_required
-def questionmovies(request, pk):
+def questionmovies(request):
 
     
     user = request.user
     player = Myusers.objects.get(email=user.email)
-
-    qno = player.pointsfactor
-    qno = qno+1
-    qno = str(qno)
-
-    question = get_object_or_404( Movies, pk = qno)
     if player.choice is None:
         player.choice = "Movies"
         player.save()
     #    return HttpResponse("lol saved as movies!")
+    elif player.choice == "Movies":
+        pass
+    else:
+        return HttpResponse("Fuck OFF. You shouldn't be here.")
+
+
+    qno = player.pointsfactor
+    qno = qno+1
+    
+
+    #lastobjectornot
+    shit = qno -1
+    questionsdec= Movies.objects.order_by('-order')
+    questionno = questionsdec.first()
+    if questionno.order == shit :
+        return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+
+    qno = str(qno)      #converting back to string since the pk must be string
+    question = get_object_or_404( Movies, order = qno)
+    
 
 
     if request.method == 'POST':
@@ -113,12 +157,23 @@ def questionmovies(request, pk):
             player.save()
             qno = player.pointsfactor
             qno = qno+1
+
+
+
+            #lastobjectornot
+            questionsdec= Movies.objects.order_by('-order')
+            questionno = questionsdec.first()
+            shit = qno -1
+            if questionno.order == shit :
+                return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+
+
             qno = str(qno)
             
         #    pk = int(pk)
         #    pk = pk+1
         #    pk = str(pk)
-            questionnext = get_object_or_404( Movies, pk = qno)
+            questionnext = get_object_or_404( Movies, order = qno)
        #     return HttpResponse("correct ans!")
             return render(request,'questions.html',{'question':questionnext, 'pk':qno})
 
@@ -135,4 +190,160 @@ def questionmovies(request, pk):
     
     return render(request, 'questions.html',{'question':question, 'pk':pk})
 
+@login_required
+def questionseries(request):
+
+    
+    user = request.user
+    player = Myusers.objects.get(email=user.email)
+
+    if player.choice is None:
+        player.choice = "Series"
+        player.save()
+    #    return HttpResponse("lol saved as movies!")
+    elif player.choice == "Series":
+        pass
+    else:
+        return HttpResponse("Fuck OFF. You shouldn't be here.")
+
+    qno = player.pointsfactor
+    qno = qno+1
+
+    #lastobjectornot
+    shit = qno -1
+    questionsdec= Series.objects.order_by('-order')
+    questionno = questionsdec.first()
+    if questionno.order == shit :
+        return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+
+    
+    qno = str(qno)
+
+    question = get_object_or_404( Series, order = qno)
+    
+
+
+    if request.method == 'POST':
+        
+        
+        answer = request.POST.get('Answer')
+        decision = question.check_ans(answer, question)
+        if (decision == 1):
+            
+            player.pointsfactor= player.pointsfactor+1
+            player.save()
+            qno = player.pointsfactor
+            qno = qno+1
+
+            #lastobjectornot
+            questionsdec= Series.objects.order_by('-order')
+            questionno = questionsdec.first()
+            shit = qno -1
+            if questionno.order == shit :
+                return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+
+            qno = str(qno)
+            
+        #    pk = int(pk)
+        #    pk = pk+1
+        #    pk = str(pk)
+            questionnext = get_object_or_404( Series, order = qno)
+       #     return HttpResponse("correct ans!")
+            return render(request,'questions.html',{'question':questionnext, 'pk':qno})#pk important to determine the question no element in the page of question
+
+        else :              
+            return render(request, 'questions.html',{'question':question, 'pk':qno})
+    
+    else:
+        return render(request, 'questions.html',{'question':question, 'pk':qno})
+     
+    
+
+
+
+    
+    return render(request, 'questions.html',{'question':question, 'pk':pk})
+
+
+@login_required
+def questionbooks(request):
+
+    
+    user = request.user
+    player = Myusers.objects.get(email=user.email)
+
+    if player.choice is None:
+        player.choice = "Books"
+        player.save()
+    #    return HttpResponse("lol saved as movies!")
+    elif player.choice == "Books":
+        pass
+    else:
+        return HttpResponse("Fuck OFF. You shouldn't be here.")
+
+    qno = player.pointsfactor
+    qno = qno+1
+    
+
+    #lastobjectornot
+    questionsdec= Books.objects.order_by('-order')
+    questionno = questionsdec.first()
+    shit = qno -1
+    if questionno.order == shit :
+        return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+
+    qno = str(qno)      #converting back to string since the pk must be string
+    question = get_object_or_404( Books, order = qno)
+    
+
+
+    if request.method == 'POST':
+        
+        
+        answer = request.POST.get('Answer')
+        decision = question.check_ans(answer, question)
+        if (decision == 1):
+            
+            player.pointsfactor= player.pointsfactor+1
+            player.save()
+            qno = player.pointsfactor
+            qno = qno+1
+
+
+
+            #lastobjectornot
+            shit = qno -1
+            questionsdec= Books.objects.order_by('-order')
+            questionno = questionsdec.first()
+            if questionno.order == shit :
+                return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+
+
+            qno = str(qno)
+            
+        #    pk = int(pk)
+        #    pk = pk+1
+        #    pk = str(pk)
+            questionnext = get_object_or_404( Books, order = qno)
+       #     return HttpResponse("correct ans!")
+            return render(request,'questions.html',{'question':questionnext, 'pk':qno})
+
+        else :              
+            return render(request, 'questions.html',{'question':question, 'pk':qno})
+    
+    else:
+        return render(request, 'questions.html',{'question':question, 'pk':qno})
+     
+    
+
+
+
+    
+    return render(request, 'questions.html',{'question':question, 'pk':pk})
+
+
+def leaderboard(request):
+    users = Myusers.ranks(Myusers)
+    
+    return render(request, 'leaderboard.html', {'users':users})
 

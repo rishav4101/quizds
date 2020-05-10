@@ -1,3 +1,8 @@
+
+{% load socialaccount %}
+{% providers_media_js %}
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,12 +31,12 @@
             <span class='bar'></span>
         </button>
 
-        <img src="dslogowhitepng.png" alt="logo" height="50px" width="auto" style="float:right; margin-right: 10px;">
+        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto" style="float:right; margin-right: 10px;">
         <header>
             <ul class='megaMenu'>
 
                 <li>
-                    <a href='questions.html'>Game</a>
+                    <a href="{% url 'login' %}">Game</a>
 
                 </li>
                 <li>
@@ -50,7 +55,9 @@
     </div>
 
     <div class="lbbox">
-        <p>1. xyz </p>
+        {% for obj in users %} 
+        <p> {{ obj.rank  }}.              {{ obj.name }} {{obj.pointsfactor}} </p>
+        {% endfor %}     
     </div>
 
 </body>

@@ -27,6 +27,7 @@ class Myusers(models.Model):
         rank=1
         for player in players:
             player.rank=rank
+            player.pointsfactor= player.pointsfactor*10
             rank +=1
         return players
 
@@ -48,16 +49,23 @@ class Movies (models.Model):
     def __str__(self):
         return "{}".format(self.question)
     def check_ans(self,answer,question):
-        # #answer checker is messed up too
+        ansinlower = question.answer.islower()
+        answer = answer.islower()
+        answers=ansinlower.split(",")
+        for ans in answers:
+            if answer==ans:
+
+
+                return True
+        return False
+
+        # #answer checker is messed up too//fixed. gaps are not respected tho.take care
         # if(Counter(answer) == Counter(question.answer)):
         #     return True
         # else:
         #     return False
-       answers=question.answer.split(",")
-       for ans in answers:
-           if answer==ans:
-               return True
-       return False
+
+       
 
     def get_next_question(self,day,qno):
         question=self.objects.filter(day=day,order=qno)
