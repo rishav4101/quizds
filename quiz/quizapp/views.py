@@ -139,17 +139,19 @@ def questionmovies(request):
     questionsdec= Movies.objects.order_by('-order')
     questionno = questionsdec.first()
     if questionno.order == shit :
-        return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
-
+        return render(request, 'end.html')
+        #return HttpResponse("More questions coming soon!")
+    sc = qno
     qno = str(qno)      #converting back to string since the pk must be string
     question = get_object_or_404( Movies, order = qno)
     
-
+    decision = 0
 
     if request.method == 'POST':
         
         
         answer = request.POST.get('Answer')
+        
         decision = question.check_ans(answer, question)
         if (decision == 1):
             
@@ -165,9 +167,10 @@ def questionmovies(request):
             questionno = questionsdec.first()
             shit = qno -1
             if questionno.order == shit :
-                return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+                return render(request, 'end.html')
+                #return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
 
-
+            sc = qno
             qno = str(qno)
             
         #    pk = int(pk)
@@ -175,20 +178,21 @@ def questionmovies(request):
         #    pk = str(pk)
             questionnext = get_object_or_404( Movies, order = qno)
        #     return HttpResponse("correct ans!")
-            return render(request,'questions.html',{'question':questionnext, 'pk':qno})
+            return render(request,'questions.html',{'question':questionnext, 'pk':qno, 'score':(sc-1)*10})
 
-        else :              
-            return render(request, 'questions.html',{'question':question, 'pk':qno})
+        else :
+            decision = -9             
+            return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
     
     else:
-        return render(request, 'questions.html',{'question':question, 'pk':qno})
+        return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
      
     
 
 
 
     
-    return render(request, 'questions.html',{'question':question, 'pk':pk})
+    return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
 
 @login_required
 def questionseries(request):
@@ -214,13 +218,14 @@ def questionseries(request):
     questionsdec= Series.objects.order_by('-order')
     questionno = questionsdec.first()
     if questionno.order == shit :
-        return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+        return render(request, 'end.html')
+        #return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
 
-    
+    sc = qno
     qno = str(qno)
 
     question = get_object_or_404( Series, order = qno)
-    
+    decision = 0
 
 
     if request.method == 'POST':
@@ -240,8 +245,9 @@ def questionseries(request):
             questionno = questionsdec.first()
             shit = qno -1
             if questionno.order == shit :
-                return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
-
+                return render(request, 'end.html')
+                #return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+            sc = qno
             qno = str(qno)
             
         #    pk = int(pk)
@@ -249,20 +255,21 @@ def questionseries(request):
         #    pk = str(pk)
             questionnext = get_object_or_404( Series, order = qno)
        #     return HttpResponse("correct ans!")
-            return render(request,'questions.html',{'question':questionnext, 'pk':qno})#pk important to determine the question no element in the page of question
+            return render(request,'questions.html',{'question':questionnext, 'pk':qno, 'score':(sc-1)*10})#pk important to determine the question no element in the page of question
 
-        else :              
-            return render(request, 'questions.html',{'question':question, 'pk':qno})
+        else :
+            decision = -9              
+            return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
     
     else:
-        return render(request, 'questions.html',{'question':question, 'pk':qno})
+        return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
      
     
 
 
 
     
-    return render(request, 'questions.html',{'question':question, 'pk':pk})
+    return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
 
 
 @login_required
@@ -290,13 +297,14 @@ def questionbooks(request):
     questionno = questionsdec.first()
     shit = qno -1
     if questionno.order == shit :
-        return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
-
+        return render(request, 'end.html')
+        #return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+    sc = qno
     qno = str(qno)      #converting back to string since the pk must be string
     question = get_object_or_404( Books, order = qno)
     
 
-
+    decision = 0
     if request.method == 'POST':
         
         
@@ -316,9 +324,11 @@ def questionbooks(request):
             questionsdec= Books.objects.order_by('-order')
             questionno = questionsdec.first()
             if questionno.order == shit :
-                return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+                return render(request, 'end.html')
+                #return HttpResponse("Confratulations. Now, wait. More questions coming your way!")
+                
 
-
+            sc = qno
             qno = str(qno)
             
         #    pk = int(pk)
@@ -326,24 +336,31 @@ def questionbooks(request):
         #    pk = str(pk)
             questionnext = get_object_or_404( Books, order = qno)
        #     return HttpResponse("correct ans!")
-            return render(request,'questions.html',{'question':questionnext, 'pk':qno})
+            return render(request,'questions.html',{'question':questionnext, 'pk':qno, 'score':(sc-1)*10})
 
-        else :              
-            return render(request, 'questions.html',{'question':question, 'pk':qno})
+        else :
+            decision = -9              
+            return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
     
     else:
-        return render(request, 'questions.html',{'question':question, 'pk':qno})
+        return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
      
     
 
 
 
     
-    return render(request, 'questions.html',{'question':question, 'pk':pk})
+    return render(request, 'questions.html',{'question':question, 'pk':qno, 'score':(sc-1)*10, 'cr':decision})
 
 
 def leaderboard(request):
     users = Myusers.ranks(Myusers)
+    player = request.user
+    name = player.username
     
-    return render(request, 'leaderboard.html', {'users':users})
+    return render(request, 'leaderboard.html', {'users':users, 'name':name})
 
+#rajkumar
+@login_required
+def end(request):
+    return render(request, 'end.html')

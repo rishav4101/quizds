@@ -478,7 +478,7 @@ form input {
     border: 1px solid #fff;
     background-color: rgba(255, 255, 255, 0.2);
     width: 250px;
-    border-radius: 3px;
+    border-radius: 8px;
     padding: 10px 15px;
     margin: 0 auto 10px auto;
     display: block;
@@ -500,6 +500,7 @@ form input:hover {
 
 form input:focus {
     background-color: rgba(155, 55, 55, 0);
+    border: 1px solid #fff;
     width: 300px;
     color: #fff;
 }
@@ -513,7 +514,7 @@ form button {
     border: 1px solid white;
     padding: 10px 15px;
     color: #f0f0f0;
-    border-radius: 3px;
+    border-radius: 8px;
     width: 250px;
     cursor: pointer;
     font-size: 18px;
@@ -555,7 +556,7 @@ form button:hover {
     }
 
     form button {
-        width: 190px;
+        width: 220px;
     }
 
 }
@@ -575,11 +576,11 @@ form button:hover {
     }
 
     form input:focus {
-        width: 250px;
+        width: 240px;
     }
 
     form button {
-        width: 170px;
+        width: 200px;
     }
 
 }

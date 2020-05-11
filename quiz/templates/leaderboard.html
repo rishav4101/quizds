@@ -1,4 +1,3 @@
-
 {% load socialaccount %}
 {% providers_media_js %}
 
@@ -9,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wembo</title>
+    <title>De-Quiz</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
@@ -31,7 +30,8 @@
             <span class='bar'></span>
         </button>
 
-        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto" style="float:right; margin-right: 10px;">
+        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto"
+            style="float:right; margin-right: 10px;">
         <header>
             <ul class='megaMenu'>
 
@@ -43,6 +43,7 @@
                     <a href='#'>Leaderboard</a>
 
                 </li>
+                <li><a href='/accounts/logout/'>Logout</a></li>
 
 
             </ul>
@@ -54,11 +55,27 @@
         <p>LEADERBOARD</p>
     </div>
 
-    <div class="lbbox">
-        {% for obj in users %} 
-        <p> {{ obj.rank  }}.              {{ obj.name }} {{obj.pointsfactor}} </p>
-        {% endfor %}     
+
+    {% for obj in users %}
+    {% if obj.name == name %}
+    <div class="lbbox" style="background-color:rgba(82, 186, 235, 0.4); border-left: 4px solid rgb(0, 162, 255);">
+        <p> {{ obj.rank  }}. {{ obj.name }} <span
+                style="color:rgb(188, 213, 252); float:right;">{{obj.pointsfactor}}</span> </p>
     </div>
+    {% elif obj.rank < 6 %}
+    <div class="lbbox" style="border-left: 4px solid green;">
+        <p> {{ obj.rank  }}. {{ obj.name }} <span
+                style="color:rgb(188, 213, 252); float:right;">{{obj.pointsfactor}}</span> </p>
+    </div>
+    {% else %}
+
+    <div class="lbbox">
+        <p> {{ obj.rank  }}. {{ obj.name }} <span
+                style="color:rgb(188, 213, 252); float:right;">{{obj.pointsfactor}}</span> </p>
+    </div>
+    {% endif %}
+    {% endfor %}
+
 
 </body>
 

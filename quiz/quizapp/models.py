@@ -40,19 +40,19 @@ class Myusers(models.Model):
 
 class Movies (models.Model):
     order = models.IntegerField(default=0, unique=True, primary_key=True)
-    question = models.CharField(max_length=500)
+    question = models.CharField(max_length=5000)
     islink = models.BooleanField(default=False)
-    link = models.CharField(max_length=150, null=True)
+    link = models.CharField(max_length=450, null=True)
     ispic = models.BooleanField(default=False)
+    image = models.URLField(max_length=1000, null=True)
     answer = models.CharField(max_length=50)
     day=models.IntegerField(default=1)
 
     def __str__(self):
         return "{}".format(self.question)
+
     def check_ans(self,answer,question):
-        ansinlower = question.answer.islower()
-        answer = answer.islower()
-        answers=ansinlower.split(",")
+        answers=question.answer.split(",")
         for ans in answers:
             if answer==ans:
 
@@ -77,15 +77,17 @@ class Movies (models.Model):
 
 class Series (models.Model):
     order = models.IntegerField(default=0, unique=True)
-    question = models.CharField(max_length=500)
+    question = models.CharField(max_length=5000)
     islink = models.BooleanField(default=False)
-    link = models.CharField(max_length=150, null=True)
+    link = models.CharField(max_length=450, null=True)
     ispic = models.BooleanField(default=False)
+    image = models.URLField(max_length=1000, null=True)
     answer = models.CharField(max_length=50)
     day=models.IntegerField(default=1)
 
     def __str__(self):
         return "{}".format(self.question)
+
     def check_ans(self,answer,question):
         answers=question.answer.split(",")
         for ans in answers:
@@ -100,10 +102,11 @@ class Series (models.Model):
 
 class Books (models.Model):
     order = models.IntegerField(default=0, unique=True)
-    question = models.CharField(max_length=500)
+    question = models.CharField(max_length=5000)
     islink = models.BooleanField(default=False)
-    link = models.CharField(max_length=150, null=True)
+    link = models.CharField(max_length=450, null=True)
     ispic = models.BooleanField(default=False)
+    image = models.URLField(max_length=1000, null=True)
     answer = models.CharField(max_length=50)
     day=models.IntegerField(default=1)
 

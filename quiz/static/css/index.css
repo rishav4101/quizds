@@ -1,7 +1,7 @@
 .login {
     margin-top: 0;
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 .headers {
     padding: 0;
     z-index: 100;
@@ -10,14 +10,27 @@
 
 .headers h2 {
     margin: 12px;
-    font-family: 'Monoton', cursive;
+    font-family: 'Fredoka One', cursive;
     font-size: 40px;
 }
 
 .headers h2 {
     color: #c7c7c7;
-    -webkit-animation: h2 0.35s infinite;
-    animation: h2 0.35s infinite;
+    -webkit-animation: h2 0.7s infinite;
+    animation: h2 0.7s infinite;
+    
+}
+.c1{
+    color:#cc0000;
+}
+.c2{
+    color:#fffb00;
+}
+.c3{
+    color:#48ff00;
+}
+.c4{
+    color:#002fff;
 }
 
 div {
@@ -29,11 +42,11 @@ div {
 
 @-webkit-keyframes h2 {
     0% {
-        text-shadow: 0 0 12px #fff;
+        text-shadow: 0 0 15px #fff;
     }
 
     100% {
-        text-shadow: 0 0 0px #000;
+        text-shadow: 0 0 12px rgb(3, 2, 59);
     }
 }
 

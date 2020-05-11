@@ -18,6 +18,21 @@
     color: #c7c7c7;
     -webkit-animation: h2 0.35s infinite;
     animation: h2 0.35s infinite;
+   
+    .c1{
+        color:#cc0000;
+    }
+    .c2{
+        color:#fffb00;
+    }
+    .c3{
+        color:#48ff00;
+    }
+    .c4{
+        color:#002fff;
+    }
+
+
 }
 
 div {
@@ -29,7 +44,7 @@ div {
 
 @-webkit-keyframes h2 {
     0% {
-        text-shadow: 0 0 12px #fff;
+        text-shadow: 0 0 15px #fff;
     }
 
     100% {
@@ -43,7 +58,7 @@ div {
 
 @keyframes h2 {
     0% {
-        text-shadow: 0 0 12px #fff;
+        text-shadow: 0 0 15px #fff;
     }
 
     100% {

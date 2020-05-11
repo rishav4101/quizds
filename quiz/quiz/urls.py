@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^$', views.login, name='login'),
     
     url(r'^choosefile/', views.choose, name='choose'),
+    url(r'^end/', views.end, name='end'),
     url(r'^questions/movies/$', views.questionmovies, name='questions_of_movies'),
     url(r'^questions/series/$', views.questionseries, name='questions_of_series'),
     url(r'^questions/books/$', views.questionbooks, name='questions_of_books'),

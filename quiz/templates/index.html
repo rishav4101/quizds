@@ -9,10 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wembo</title>
+    <title>De-Quiz</title>
     <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"  />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
     <style>
 
     </style>
@@ -72,15 +72,21 @@
     </div>
 
     <div class="headers">
-        <h2>WeMBo</h2>
+        <h2><span>D</span>
+            <span>E</span>
+            <span>-</span>
+            <span class="c1">Q</span>
+            <span class="c2">U</span>
+            <span class="c3">I</span>
+            <span class="c4">Z</span>
+        </h2>
     </div>
-    <div class="wall_title"><button type="submit" class="cbtn" 
-    onclick="window.location.href='{% provider_login_url "google" %}';"
-            >Login using Google</button></div>
+    <div class="wall_title"><button type="submit" class="cbtn"
+            onclick="window.location.href='{% provider_login_url "google" %}';">Login with Google</button></div>
 
 
-    <div style="float: bottom; text-align: center; color:#f0f0f0;">
-        <h5>&copy;Debsoc NITDGP</h5>
+    <div style="bottom:0px;width:100%;position: absolute; text-align: center; color:#f0f0f0;">
+        <h5>&copy;DEBSOC NITDGP</h5>
     </div>
 </body>
 

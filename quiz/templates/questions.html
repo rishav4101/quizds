@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wembo</title>
+    <title>De-Quiz</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
 </head>
@@ -31,7 +31,8 @@
             <span class='bar'></span>
             <span class='bar'></span>
         </button>
-        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto" style="float:right; margin-right: 10px;">
+        <img src="{% static 'css/dslogowhitepng.png' %}" alt="logo" height="50px" width="auto"
+            style="float:right; margin-right: 10px;">
         <header>
             <ul class='megaMenu'>
 
@@ -54,30 +55,48 @@
     <div class="head">
         <p>Question {{pk}}</p>
     </div>
-    {% if question.islink is True %}
-    <div class="box">
-            <p>
-                {{ question.link }}
-                Here should be a link
-            </p>
+    <div style="text-align: center; color: aquamarine;">
+        <h3>Your Score : {{score}}</h3>
     </div>
-    {% endif %}
 
-    {% if question.ispic is True %}
+
+
+
+
+
+
+
+
+
     <div class="box">
+        {% if question.ispic is True %}
+        <div class="imgbox">
+            <img src="{{question.image}}" alt="" />
+        </div>
+
+        {% endif %}
+
+
+        {% if question.islink is True %}
+
         <p>
-            Here should be a pic. Seriously. -__- Where is it, Rajkumar?
+            Link to the video : <br />
+            <a href="{{ question.link }}"> <u>Watch</u></a>
+
         </p>
-    </div>
-    {% endif %}
+        {% endif %}
 
-
-
-    <div class="box">
-        
         <p>{{question.question}}
         </p>
     </div>
+
+    {% if cr == -9 %}
+    <div style="color: red; text-align: center;">
+        <h4>Try Again</h4>
+    </div>
+    {% endif %}
+
+
     <div class="container">
 
         <form class="form" name="Response" method="POST">
